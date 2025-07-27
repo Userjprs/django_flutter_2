@@ -26,4 +26,11 @@ class QuizQuestion {
       quizId: json['quiz'],
     );
   }
+
+  // pasar a las siguientes preguntas
+  List<String> getShuffledAnswers() {
+    final shuffleList = List.of(options);
+    shuffleList.shuffle();
+    return shuffleList;
+  }
 }

@@ -22,7 +22,7 @@ class QuestionsScreen extends StatefulWidget {
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
   final List<QuizQuestion> listaPreguntas = [];
-  int currentQuestionIndex = 0;
+  var currentQuestionIndex = 2; //  inician las preguntas
 
   void responder() {
     if (currentQuestionIndex < widget.preguntas.length - 1) {
@@ -32,6 +32,13 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     } else {
       widget.onNextQuiz(); // ← Aquí cambia al siguiente quiz
     }
+  }
+
+  // recorrer las preguntas
+  void answerQuestion() {
+    setState(() {
+      currentQuestionIndex++;
+    });
   }
 
   @override
@@ -57,8 +64,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               style: const TextStyle(fontSize: 18, color: Colors.white),
             ),
             const SizedBox(height: 30),
-            ...currentQuestion.options.map((answer) {
-              return AnswerButton(text: answer, onTap: () {});
+            // ...currentQuestion.options.map((answer) {
+            ...currentQuestion.getShuffledAnswers().map((options) {
+              // return AnswerButton(text: options, onTap: () {});
+              return AnswerButton(text: options, onTap: answerQuestion);
             }),
           ],
         ),
