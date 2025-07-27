@@ -4,7 +4,10 @@ import 'package:django_flutter_2/models/quiz_item.dart';
 import 'package:flutter/material.dart';
 
 class QuizItemScreen extends StatefulWidget {
-  const QuizItemScreen({super.key});
+  // cambiar la pantalla a questions_screen
+  final void Function(int quizId) resolveQuiz;
+
+  const QuizItemScreen({super.key, required this.resolveQuiz});
 
   @override
   _QuizItemScreenState createState() => _QuizItemScreenState();
@@ -70,7 +73,11 @@ class _QuizItemScreenState extends State<QuizItemScreen> {
                 padding: const EdgeInsets.only(bottom: 20),
                 child: QuizItemButton(
                   text: quiz.title,
-                  onTap: () {},
+                  // onTap: () {},
+                  // onTap: widget.resolveQuiz,
+                  onTap: () {
+                    widget.resolveQuiz(quiz.id);
+                  },
                   // onTap: () {
                   //   // desde aqui se puede navegar a QuestionsScreen
                   //   print('Quiz seleccionado: ${quiz.id}');
