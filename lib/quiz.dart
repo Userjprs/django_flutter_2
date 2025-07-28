@@ -1,5 +1,6 @@
 import 'package:django_flutter_2/screens/questions_screen.dart';
 import 'package:django_flutter_2/screens/quizitem_screen.dart';
+import 'package:django_flutter_2/screens/results_screen.dart';
 import 'package:django_flutter_2/screens/start_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +26,9 @@ class _QuizState extends State<Quiz> {
   //     activeScreen = const QuizItemScreen();
   //   });
   // }
+
+  // elegir la respuesta correcta
+  List<String> selectedAnswers = [];
 
   // otra forma de cambiar pantalla
   var activeScreen = 'start-screen';
@@ -103,6 +107,29 @@ class _QuizState extends State<Quiz> {
     cargarPreguntas(quizId); // ya incrementa el quizId automáticamente
   }
 
+  // funcion para elegir la respuesta correcta(metodo):
+  void chooseAnswer(String answer) {
+    selectedAnswers.add(answer);
+
+    // condicion para volver a pantalla inicial
+    if (selectedAnswers.length == listaPreguntas.length) {
+      // selectedAnswers = [];
+      resetQuiz();
+      setState(() {
+        // activeScreen = 'start-screen';
+        activeScreen = 'results-screen';
+      });
+    }
+  }
+
+  // funcion para reiniciar quiz
+  void resetQuiz() {
+    selectedAnswers = [];
+    setState(() {
+      activeScreen = 'start-screen';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // 2da forma de cambiar pantalla
@@ -136,7 +163,14 @@ class _QuizState extends State<Quiz> {
       screenWidget = QuestionsScreen(
         preguntas: listaPreguntas,
         quizId: quizId,
+        // onNextQuiz: avanzarAlSiguienteQuiz,
         onNextQuiz: avanzarAlSiguienteQuiz,
+        onSelectAnswer: (chooseAnswer),
+      );
+    } else if (activeScreen == 'results-screen') {
+      screenWidget = ResultsScreen(
+        chosenAnswers: selectedAnswers,
+        questions: [], // revisar
       );
     } else {
       screenWidget = Center(child: Text('Pantalla desconocida'));

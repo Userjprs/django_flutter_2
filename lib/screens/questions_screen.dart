@@ -14,7 +14,12 @@ class QuestionsScreen extends StatefulWidget {
     required this.quizId,
     required this.preguntas,
     required this.onNextQuiz,
+    required this.onSelectAnswer,
   });
+
+  // para determinar la respuesta correcta
+  // final void Function() onSelectAnswer;
+  final void Function(String answer) onSelectAnswer;
 
   @override
   _QuestionsScreenState createState() => _QuestionsScreenState();
@@ -22,7 +27,7 @@ class QuestionsScreen extends StatefulWidget {
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
   final List<QuizQuestion> listaPreguntas = [];
-  var currentQuestionIndex = 2; //  inician las preguntas
+  var currentQuestionIndex = 0; //  inician las preguntas
 
   void responder() {
     if (currentQuestionIndex < widget.preguntas.length - 1) {
@@ -35,7 +40,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   }
 
   // recorrer las preguntas
-  void answerQuestion() {
+  void answerQuestion(String selectedAnswer) {
+    widget.onSelectAnswer(selectedAnswer);
     setState(() {
       currentQuestionIndex++;
     });
@@ -61,13 +67,24 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             Text(
               textAlign: TextAlign.center,
               currentQuestion.questionText,
-              style: const TextStyle(fontSize: 18, color: Colors.white),
+              style: const TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 30),
             // ...currentQuestion.options.map((answer) {
             ...currentQuestion.getShuffledAnswers().map((options) {
               // return AnswerButton(text: options, onTap: () {});
-              return AnswerButton(text: options, onTap: answerQuestion);
+              // recorre las preguntas
+              // return AnswerButton(text: options, onTap: answerQuestion);
+              return AnswerButton(
+                text: options,
+                onTap: () {
+                  answerQuestion(options);
+                },
+              );
             }),
           ],
         ),

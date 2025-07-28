@@ -64,7 +64,11 @@ class _QuizItemScreenState extends State<QuizItemScreen> {
             Text(
               textAlign: TextAlign.center,
               'Quiz List Api',
-              style: const TextStyle(fontSize: 18, color: Colors.white),
+              style: const TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 30),
 
