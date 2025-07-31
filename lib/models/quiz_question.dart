@@ -17,6 +17,12 @@ class QuizQuestion {
   });
 
   factory QuizQuestion.fromJson(Map<String, dynamic> json) {
+    // print('ID: ${json['id']}');
+    // print('Texto: ${json['question_text']}');
+    // print('Respuesta correcta: ${json['correct_answer']}');
+    // print('Tipo: ${json['question_type']}');
+    // print('Opciones: ${json['options']}');
+    // print('Quiz ID: ${json['quiz']}');
     return QuizQuestion(
       id: json['id'],
       questionText: json['question_text'],

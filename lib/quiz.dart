@@ -114,8 +114,9 @@ class _QuizState extends State<Quiz> {
     // condicion para volver a pantalla inicial
     if (selectedAnswers.length == listaPreguntas.length) {
       // selectedAnswers = [];
-      resetQuiz();
+      // resetQuiz();
       setState(() {
+        // selectedAnswers = [];
         // activeScreen = 'start-screen';
         activeScreen = 'results-screen';
       });
@@ -124,8 +125,8 @@ class _QuizState extends State<Quiz> {
 
   // funcion para reiniciar quiz
   void resetQuiz() {
-    selectedAnswers = [];
     setState(() {
+      selectedAnswers = [];
       activeScreen = 'start-screen';
     });
   }
@@ -170,7 +171,7 @@ class _QuizState extends State<Quiz> {
     } else if (activeScreen == 'results-screen') {
       screenWidget = ResultsScreen(
         chosenAnswers: selectedAnswers,
-        questions: [], // revisar
+        questions: listaPreguntas, // revisar
       );
     } else {
       screenWidget = Center(child: Text('Pantalla desconocida'));

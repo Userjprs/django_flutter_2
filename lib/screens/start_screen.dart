@@ -16,7 +16,8 @@ class StartScreen extends StatelessWidget {
           Image.asset('assets/images/quiz-logo.png', width: 300),
           const SizedBox(height: 80),
           const Text(
-            'Learn Flutter the fun way!',
+            // 'Learn Flutter the fun way!',
+            'Learn amazing facts the fun way!',
             style: TextStyle(fontSize: 24, color: Colors.white),
           ),
           // Text('Start Screen'),

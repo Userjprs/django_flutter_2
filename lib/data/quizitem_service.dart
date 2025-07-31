@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/quiz_item.dart';
 
+// define un servicio que se conecta a un servidor web para obtnener una lista
+// de quizzes desde una API .
 class QuizitemService {
   static Future<List<QuizItem>> obtenerQuizzes() async {
     try {
